@@ -1,0 +1,104 @@
+@use "../abstracts" as *;
+
+.sidebar {
+    &--container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding-block: 0.5rem;
+
+        @include mq(small) {
+            padding-block: 2rem;
+            border-top: 0px;
+        }
+    }
+
+    &--logo {
+        display: none;
+
+        @include mq(small) {
+            display: block;
+
+            img {
+                width: 6rem;
+            }
+        }
+    }
+
+    &--menu {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        flex: 1;
+
+        @include mq(small) {
+            justify-content: start;
+            flex-direction: column;
+        }
+    }
+
+    &--item {
+        list-style: none;
+        cursor: pointer;
+    }
+
+    &--link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 1rem;
+        color: var(--clr-neutral-200);
+        line-height: 1;
+        border: thin solid transparent;
+
+        @include mq(small) {
+            border-right: 3px solid transparent;
+
+            &:hover,
+            &.active {
+                border-right-color: var(--clr-green-400);
+            }
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        span {
+            font-weight: 600;
+            display: none;
+            line-height: 1.4;
+
+            @include mq(medium) {
+                display: block;
+            }
+        }
+
+        &:hover,
+        &.active {
+            color: var(--clr-green-500);
+        }
+    }
+
+    &--button {
+        display: none;
+        color: var(--clr-neutral-200) !important;
+
+        @include mq(small) {
+            display: block;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        &:hover {
+            color: var(--clr-green-500) !important;
+        }
+    }
+}
