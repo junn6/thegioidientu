@@ -1,0 +1,65 @@
+@use "../abstracts/" as *;
+
+.shop {
+    --flow-spacer: 1.25rem;
+    --shop-search-width: 40rem;
+
+    &-search {
+        position: relative;
+        width: min(100%, var(--shop-search-width));
+
+        &-input {
+            input {
+                border-radius: 1.5rem;
+                padding-right: 3.5rem;
+            }
+        }
+
+        &-btn {
+            position: absolute;
+            top: 50%;
+            right: 0.5rem;
+            transform: translateY(-50%);
+            background-color: var(--clr-primary-500);
+            color: var(--clr-neutral-100);
+            width: 2.75rem;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+
+    &-categories {
+        --gap: 0.75rem;
+        flex-wrap: wrap;
+
+        &-item {
+            flex-shrink: 0;
+            background-color: #fff;
+            padding: 0.25rem 0.5rem;
+            border: thin solid transparent;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &[data-visible="true"] {
+                border-color: var(--clr-primary-300);
+            }
+        }
+    }
+
+    &-grid {
+        --gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+
+        @include mq(small) {
+            grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+        }
+
+        @include mq(medium) {
+            grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        }
+    }
+}

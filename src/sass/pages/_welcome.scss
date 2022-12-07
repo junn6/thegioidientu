@@ -1,0 +1,10 @@
+@use "../abstracts/" as *;
+
+.welcome {
+    width: min(100% - 2rem, 25rem);
+
+    &-content {
+        --flow-spacer: 0.5rem;
+        margin-top: -2.5rem;
+    }
+}

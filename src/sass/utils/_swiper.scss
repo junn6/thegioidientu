@@ -1,0 +1,26 @@
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: var(--clr-neutral-500);
+    color: var(--clr-neutral-100) !important;
+    width: 2rem !important;
+    aspect-ratio: 1 !important;
+    border-radius: 0.5rem;
+    opacity: 0.3;
+
+    &::after {
+        font-size: var(--fs-400) !important;
+        font-weight: var(--fw-bold);
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.swiper-button-next {
+    right: 0 !important;
+}
+
+.swiper-button-prev {
+    left: 0 !important;
+}

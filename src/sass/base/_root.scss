@@ -1,0 +1,40 @@
+@use "../abstracts/" as *;
+
+// Import google font cdn
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap");
+
+// Custom properties
+:root {
+    // Font-family
+    --ff-primary: "Open Sans", sans-serif;
+    --ff-secondary: "Work Sans", sans-serif;
+
+    // Font-size
+    @each $screen-size, $property in $font-sizes {
+        @if $screen-size == small {
+            @each $prop, $value in $property {
+                --fs-#{$prop}: #{$value};
+            }
+        } @else {
+            @include mq(small) {
+                @each $prop, $value in $property {
+                    --fs-#{$prop}: #{$value};
+                }
+            }
+        }
+    }
+
+    // Font-weight
+    @each $weight, $value in $font-weights {
+        --fw-#{$weight}: #{$value};
+    }
+
+    // Colors
+    @each $color, $shade in $colors {
+        @each $prop, $value in $shade {
+            --clr-#{$color}-#{$prop}: #{$value};
+        }
+    }
+
+    //
+}

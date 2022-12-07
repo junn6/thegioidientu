@@ -1,0 +1,18 @@
+@use "../abstracts/" as *;
+
+.category {
+    --flow-spacer: 1.25rem;
+
+    &-grid {
+        --gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+
+        @include mq(small) {
+            grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+        }
+
+        @include mq(medium) {
+            grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        }
+    }
+}

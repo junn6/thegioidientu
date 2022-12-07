@@ -1,0 +1,11 @@
+.home {
+    --flow-spacer: 1.25rem;
+
+    &-grid {
+        grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+
+        & > * {
+            cursor: pointer;
+        }
+    }
+}

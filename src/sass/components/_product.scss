@@ -1,0 +1,29 @@
+@use "../abstracts/" as *;
+
+.product {
+    // product card
+    &-card {
+        --flow-spacer: 0.5rem;
+
+        &-img {
+            aspect-ratio: 7 / 5;
+
+            @include mq(small) {
+                aspect-ratio: 1;
+            }
+
+            img {
+                border-radius: 0.5rem;
+            }
+        }
+
+        &-name {
+            font-weight: var(--fw-bold);
+        }
+
+        &-cost {
+            font-weight: var(--fw-bold);
+            color: var(--clr-primary-500);
+        }
+    }
+}

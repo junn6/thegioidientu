@@ -1,0 +1,60 @@
+@use "../abstracts/" as *;
+
+.cart {
+    --gap: 1.25rem;
+    --border-radius: 0.5rem;
+
+    &-item {
+        flex-direction: column;
+        padding: 1rem;
+        background-color: white;
+        border-radius: var(--border-radius);
+
+        @include mq(small) {
+            flex-direction: row;
+        }
+
+        &-img {
+            width: 100%;
+            aspect-ratio: 1;
+
+            @include mq(small) {
+                width: 10rem;
+            }
+
+            img {
+                border-radius: var(--border-radius);
+            }
+        }
+
+        &-quantity {
+            --gap: 0.25rem;
+
+            span {
+                cursor: pointer;
+                font-size: var(--fs-400);
+            }
+
+            &[data-visible="false"] {
+                pointer-events: none;
+                opacity: 0.6;
+            }
+        }
+
+        &-cost {
+            @include mq(small) {
+                width: 8rem;
+                text-align: right;
+            }
+        }
+
+        &-icon {
+            line-height: 1;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--clr-primary-500);
+            }
+        }
+    }
+}
