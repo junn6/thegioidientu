@@ -104,7 +104,7 @@ const User = () => {
                                     <td>{user.createdAt.format}</td>
                                     <td>
                                         <Link
-                                            to={`user/edit/${user.id}`}
+                                            to={`/user/edit/${user.id}`}
                                             className="table--button"
                                             style={{
                                                 marginRight: "0.25rem",
