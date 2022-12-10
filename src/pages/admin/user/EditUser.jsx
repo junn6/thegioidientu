@@ -1,10 +1,10 @@
 // Import library
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 
 // Import icons
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { v4 } from "uuid";
 
 // Import components
 import { Loading } from "../../../components";
@@ -21,7 +21,6 @@ const EditUser = () => {
 
     // ? Set up ref variables
     const photoRef = useRef();
-    const buttonRef = useRef();
 
     // ? Set up states variables
     const [error, setError] = useState("");
@@ -232,7 +231,6 @@ const EditUser = () => {
                     className="button text--center"
                     button-variant="contained"
                     button-color="green"
-                    ref={buttonRef}
                 >
                     cập nhật
                 </button>
