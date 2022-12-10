@@ -8,18 +8,26 @@ import { RiDeleteBinLine } from "react-icons/ri";
 // Import components
 import { Loading } from "../../../components";
 import { useGetCollection } from "../../../hooks";
+import { deleteObjStorage, deleteById } from "../../../utils";
 
 const Product = () => {
     // ? Get data in custom hook
-    const [loading, data] = useGetCollection({
-        collectionName: "products",
+    const [loading, data, setReload] = useGetCollection({
+        collectionName: "product",
     });
     /**
      * ? Handle event function
      * * 1. Delete product method
      */
     const handleClick = async (product) => {
-        console.log(product);
+        // TODO Get product info
+        const { id, photos } = product;
+        // TODO Delete image file in storage
+        await Promise.all([...photos].map((photo) => deleteObjStorage(photo)));
+        // TODO Delete information in product collection firestore
+        await deleteById("product", id);
+        // TODO Update data table
+        setReload(true);
     };
 
     if (loading) {
@@ -34,7 +42,7 @@ const Product = () => {
             <div className="d-flex justify--between items--center">
                 <h5>Quản lý sản phẩm</h5>
                 <Link
-                    to="/add_product"
+                    to="/product/create"
                     className="button"
                     button-variant="contained"
                     button-color="green"
@@ -79,10 +87,10 @@ const Product = () => {
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.total}</td>
-                                    <td>{product.cost}</td>
+                                    <td>{product.cost.format}</td>
                                     <td>
                                         <Link
-                                            to={`/edit_product/${product.id}`}
+                                            to={`/product/edit/${product.id}`}
                                             className="table--button"
                                             style={{
                                                 marginRight: "0.25rem",
