@@ -3,7 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 
 // Import icons
 import { BiHomeAlt } from "react-icons/bi";
-import { HiOutlineUsers } from "react-icons/hi";
+import {
+    HiOutlineUsers,
+    HiOutlineUser,
+    HiOutlineUserGroup,
+} from "react-icons/hi";
 import { MdLogout, MdOutlineShoppingCart } from "react-icons/md";
 import { RiShoppingBag3Line } from "react-icons/ri";
 
@@ -11,7 +15,7 @@ import { RiShoppingBag3Line } from "react-icons/ri";
 import { useAuth } from "../contexts";
 import Logo from "../assets/logo/logo.png";
 
-const Sidebar = () => {
+const Sidebar = ({ role }) => {
     // ? Get method in useAuth hook
     const { signout } = useAuth();
 
@@ -40,6 +44,14 @@ const Sidebar = () => {
                             <span>Trang chủ</span>
                         </NavLink>
                     </li>
+                    {role === 0 && (
+                        <li className="sidebar--item">
+                            <NavLink className="sidebar--link" to="/employee">
+                                <HiOutlineUserGroup />
+                                <span>Nhân viên</span>
+                            </NavLink>
+                        </li>
+                    )}
                     <li className="sidebar--item">
                         <NavLink className="sidebar--link" to="/user">
                             <HiOutlineUsers />
@@ -58,6 +70,14 @@ const Sidebar = () => {
                             <span>Đơn hàng</span>
                         </NavLink>
                     </li>
+                    {role === 1 && (
+                        <li className="sidebar--item">
+                            <NavLink className="sidebar--link" to="/profile">
+                                <HiOutlineUser />
+                                <span>Hồ sơ</span>
+                            </NavLink>
+                        </li>
+                    )}
                 </ul>
                 <button className="sidebar--button" onClick={handleClick}>
                     <MdLogout />

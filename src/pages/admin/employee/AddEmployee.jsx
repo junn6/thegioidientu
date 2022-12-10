@@ -18,7 +18,7 @@ import {
 import { user as userObj } from "../../../constants";
 import avatarDefault from "../../../assets/avatar/userprofile.jpg";
 
-const AddUser = () => {
+const AddEmployee = () => {
     // ? Get signin method in useAuth hook
     const { signup } = useAuth();
 
@@ -42,6 +42,7 @@ const AddUser = () => {
      * ? Handle event function
      * * 1. Open file when click photo upload button
      * * 2. Handle when file ref change
+     * * 3. Handle submit form
      */
     function handleClicktoOpenFile() {
         photoRef.current.click();
@@ -54,6 +55,7 @@ const AddUser = () => {
             setAvatar(file);
         }
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -109,6 +111,7 @@ const AddUser = () => {
             timestamp: serverTimestamp(),
             format: dateFormat(Date.now()),
         };
+        user.role = 1;
 
         // ? Upload image to storage and get url image if have user avatar
         if (avatar) {
@@ -125,7 +128,6 @@ const AddUser = () => {
          * TODO Subcribed account to firebase auth
          * * 1. sign up account
          * * 2. save data user in user collection firestore
-         * * 3. create cart collection of user in firestore
          */
         try {
             // * 1. sign up account
@@ -137,15 +139,8 @@ const AddUser = () => {
             // * 2. save data user in users collection firestore
             await create("user", { ...user }, res.user.uid);
 
-            // * 3. create cart collection of user in firestore
-            await create("cart", {
-                uid: res.user.uid,
-                products: [],
-                total: 0,
-            });
-
-            // TODO navigate to user dashboard
-            navigate("/user");
+            // TODO navigate to employee dashboard
+            navigate("/employee");
         } catch {
             setError("Lỗi tạo tài khoản. Vui lòng thử lại!");
             return;
@@ -273,4 +268,4 @@ const AddUser = () => {
     );
 };
 
-export default AddUser;
+export default AddEmployee;

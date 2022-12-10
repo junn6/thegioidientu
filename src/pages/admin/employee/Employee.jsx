@@ -11,11 +11,11 @@ import { useGetCollection } from "../../../hooks";
 import { photoURLDefault } from "../../../constants";
 import { deleteById, deleteObjStorage } from "../../../utils";
 
-const User = () => {
+const Employee = () => {
     // ? Get data in custom hook
     const [loading, data, setReload] = useGetCollection({
         collectionName: "user",
-        collectionCondition: { field: "role", condition: "==", data: 2 },
+        collectionCondition: { field: "role", condition: "==", data: 1 },
     });
 
     /**
@@ -42,17 +42,18 @@ const User = () => {
             </section>
         );
     }
+
     return (
         <section className="flow">
             <div className="d-flex justify--between items--center">
-                <h5>Quản lý khách hàng</h5>
+                <h5>Quản lý nhân viên</h5>
                 <Link
-                    to="/user/create"
+                    to="/employee/create"
                     className="button"
                     button-variant="contained"
                     button-color="green"
                 >
-                    thêm khách hàng
+                    thêm nhân viên
                 </Link>
             </div>
             <div style={{ width: "100%", overflowX: "scroll" }}>
@@ -68,13 +69,13 @@ const User = () => {
                         </tr>
                     </thead>
                     <tbody className="table--body">
-                        {/* Nếu chưa có dữ liệu khách hàng */}
+                        {/* Nếu chưa có dữ liệu nhân viên */}
                         {data.length === 0 && (
                             <tr>
-                                <td colSpan={6}>Chưa có dữ liệu khách hàng!</td>
+                                <td colSpan={6}>Chưa có dữ liệu nhân viên!</td>
                             </tr>
                         )}
-                        {/* Có dữ liệu khách hàng */}
+                        {/* Có dữ liệu nhân viên */}
                         {data.length > 0 &&
                             data.map((user, index) => (
                                 <tr key={user.id}>
@@ -104,7 +105,7 @@ const User = () => {
                                     <td>{user.createdAt.format}</td>
                                     <td>
                                         <Link
-                                            to={`user/edit/${user.id}`}
+                                            to={`/employee/edit/${user.id}`}
                                             className="table--button"
                                             style={{
                                                 marginRight: "0.25rem",
@@ -128,4 +129,4 @@ const User = () => {
     );
 };
 
-export default User;
+export default Employee;

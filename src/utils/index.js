@@ -1,2 +1,11 @@
 export { dateFormat, capitalizeFirstLetter, trimLetter } from "./format";
-export { all, create, findById, update } from "./firebase";
+export {
+    all,
+    create,
+    findById,
+    deleteById,
+    update,
+    uploadAndGetPhotoURL,
+    deleteObjStorage,
+} from "./firebase";
+export { emailRegex, passwordRegex, phoneNumberRegex } from "./regex";

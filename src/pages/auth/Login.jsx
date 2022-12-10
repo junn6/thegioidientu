@@ -41,11 +41,11 @@ const Login = () => {
             );
             // TODO Get data user in collection & Check role
             const { uid } = auth.user;
-            const userSnap = await findById("users", uid);
+            const userSnap = await findById("user", uid);
             const { role } = userSnap.data();
 
             // * If not admin, navigate to denied pages
-            if (role > 0) {
+            if (role > 1) {
                 navigate("/denied");
                 return;
             }
