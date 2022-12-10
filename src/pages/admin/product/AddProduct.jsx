@@ -9,7 +9,12 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import { TiDelete } from "react-icons/ti";
 
 // Import components
-import { product as productObj, productDetails } from "../../../constants";
+import {
+    product as productObj,
+    review as reviewObj,
+    revenue as revenueObj,
+    productDetails,
+} from "../../../constants";
 import { dateFormat, uploadAndGetPhotoURL, create } from "../../../utils";
 
 const AddProduct = () => {
@@ -167,7 +172,27 @@ const AddProduct = () => {
         product.photos = await getAllUrls();
 
         // * 1. Create product collection in firestore
-        await create("product", { ...product });
+        const res = await create("product", { ...product });
+
+        const { id } = res;
+
+        // * 2. Create review collection in firestore
+        const review = { ...reviewObj };
+        review.productId = id;
+        review.name = product.name;
+        review.photoURL = product.photos[0];
+        review.total = 0;
+
+        await create("review", { ...review });
+
+        // * 3. Create revenue collection in firestore
+        const revenue = { ...revenueObj };
+        revenue.productId = id;
+        revenue.name = product.name;
+        revenue.cost = product.cost;
+        revenue.photoURL = product.photos[0];
+
+        await create("revenue", { ...revenue });
 
         // TODO navigate to product dashboard
         navigate("/product");

@@ -41,13 +41,11 @@ const order = {
 };
 
 const review = {
-    uid: "",
-    fullName: "",
-    photoURL: "",
     productId: "",
-    star: 0,
-    comment: "",
-    createdAt: null,
+    name: "",
+    photoURL: "",
+    comment: [],
+    total: null,
 };
 
 const revenue = {
