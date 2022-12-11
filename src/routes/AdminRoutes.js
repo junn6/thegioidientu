@@ -18,6 +18,8 @@ import {
     Employee,
     AddEmployee,
     EditEmployee,
+    Profile,
+    EditProfile,
     PermissionDenied,
 } from "../pages";
 import { Wrapper } from "../components";
@@ -57,6 +59,11 @@ const ShopRoutes = () => {
                             <Route
                                 path="/product/edit/:productId"
                                 element={<EditProduct />}
+                            />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route
+                                path="/profile/edit"
+                                element={<EditProfile />}
                             />
                             <Route path="/order" element={<Order />} />
                         </Route>

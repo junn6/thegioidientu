@@ -4,9 +4,9 @@
 
 const Dashboard = () => {
     return (
-        <>
-            <h1>Dashboard</h1>
-        </>
+        <section className="flow">
+            <h5>Dashboard</h5>
+        </section>
     );
 };
 
