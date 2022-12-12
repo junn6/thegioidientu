@@ -1,6 +1,7 @@
 // Import library
 import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { serverTimestamp } from "firebase/firestore";
 
 // Import components
 import { useAuth } from "../../contexts";
@@ -9,7 +10,7 @@ import {
     emailRegex,
     passwordRegex,
     phoneNumberRegex,
-    UserConstructor,
+    user as userObj,
 } from "../../constants";
 import { dateFormat } from "../../utils";
 
@@ -72,12 +73,15 @@ const Signup = () => {
         }
 
         // Signup
-        const userObj = new UserConstructor();
-        userObj.fullName = fullNameRef.current.value;
-        userObj.displayName = displayNameRef.current.value;
-        userObj.email = emailRef.current.value;
-        userObj.phoneNumber = phoneNumberRef.current.value;
-        userObj.createdAt = dateFormat(Date.now());
+        const user = { ...userObj };
+        user.fullName = fullNameRef.current.value;
+        user.displayName = displayNameRef.current.value;
+        user.email = emailRef.current.value;
+        user.phoneNumber = phoneNumberRef.current.value;
+        user.createdAt = {
+            timestamp: serverTimestamp(),
+            format: dateFormat(Date.now()),
+        };
 
         try {
             const res = await signup(
@@ -87,7 +91,7 @@ const Signup = () => {
             const { uid } = res.user;
 
             // Save user info to firestore
-            await create("users", { ...userObj }, uid);
+            await create("users", { ...user }, uid);
 
             // Create user cart collection
             await create("cart", {
