@@ -9,6 +9,7 @@ export default function useGetCollection({
     collectionCondition = null,
 }) {
     // ? Set up states variables
+    const [props, setProps] = useState({ collectionName, collectionCondition });
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState();
 
@@ -29,8 +30,8 @@ export default function useGetCollection({
             setLoading(false);
         };
 
-        getData(collectionName, collectionCondition);
-    }, [collectionName, collectionCondition]);
+        getData(props.collectionName, props.collectionCondition);
+    }, [props]);
 
-    return [loading, data];
+    return [loading, data, setProps];
 }
