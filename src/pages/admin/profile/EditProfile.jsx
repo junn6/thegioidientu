@@ -102,7 +102,7 @@ const EditProfile = () => {
         }
 
         // TODO Update data in firestore
-        await update("user", currentUser.uid, { ...user });
+        await update("member", currentUser.uid, { ...user });
 
         // TODO navigate to employee dashboard
         navigate("/profile");
@@ -132,7 +132,7 @@ const EditProfile = () => {
     // ? Method for get user data
     async function getUserById(id) {
         // TODO Get data in firestore
-        const userSnap = await findById("user", id);
+        const userSnap = await findById("member", id);
         // TODO Set user data
         const userData = userSnap.data();
         localStorage.setItem("user", JSON.stringify({ ...userData }));

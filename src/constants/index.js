@@ -1,4 +1,5 @@
 export {
+    member,
     user,
     product,
     cart,

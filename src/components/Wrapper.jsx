@@ -11,7 +11,7 @@ const Wrapper = () => {
     const outlet = useOutlet();
     const { currentUser } = useAuth();
     const [loading, data] = useGetCollection({
-        collectionName: "user",
+        collectionName: "member",
         collectionCondition: {
             field: "email",
             condition: "==",

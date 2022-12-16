@@ -15,7 +15,6 @@ const User = () => {
     // ? Get data in custom hook
     const [loading, data, setReload] = useGetCollection({
         collectionName: "user",
-        collectionCondition: { field: "role", condition: "==", data: 2 },
     });
 
     /**

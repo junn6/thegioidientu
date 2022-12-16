@@ -52,25 +52,32 @@ const Sidebar = ({ role }) => {
                             </NavLink>
                         </li>
                     )}
-                    <li className="sidebar--item">
-                        <NavLink className="sidebar--link" to="/user">
-                            <HiOutlineUsers />
-                            <span>Người dùng</span>
-                        </NavLink>
-                    </li>
-                    <li className="sidebar--item">
-                        <NavLink className="sidebar--link" to="/product">
-                            <RiShoppingBag3Line />
-                            <span>Sản phẩm</span>
-                        </NavLink>
-                    </li>
+                    {role <= 1 && (
+                        <>
+                            <li className="sidebar--item">
+                                <NavLink className="sidebar--link" to="/user">
+                                    <HiOutlineUsers />
+                                    <span>Người dùng</span>
+                                </NavLink>
+                            </li>
+                            <li className="sidebar--item">
+                                <NavLink
+                                    className="sidebar--link"
+                                    to="/product"
+                                >
+                                    <RiShoppingBag3Line />
+                                    <span>Sản phẩm</span>
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                     <li className="sidebar--item">
                         <NavLink className="sidebar--link" to="/order">
                             <MdOutlineShoppingCart />
                             <span>Đơn hàng</span>
                         </NavLink>
                     </li>
-                    {role === 1 && (
+                    {role >= 1 && (
                         <li className="sidebar--item">
                             <NavLink className="sidebar--link" to="/profile">
                                 <HiOutlineUser />

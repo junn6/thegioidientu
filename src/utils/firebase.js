@@ -64,6 +64,10 @@ export function all(collectionName, collectionCondition = null) {
      * TODO Get all items in collection that fits condition
      */
     const { field, condition, data } = collectionCondition;
+    if (!data) {
+        return [];
+    }
+
     const q = query(
         collection(db, collectionName),
         where(field, condition, data)

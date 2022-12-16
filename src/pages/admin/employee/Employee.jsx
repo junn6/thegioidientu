@@ -14,8 +14,8 @@ import { deleteById, deleteObjStorage } from "../../../utils";
 const Employee = () => {
     // ? Get data in custom hook
     const [loading, data, setReload] = useGetCollection({
-        collectionName: "user",
-        collectionCondition: { field: "role", condition: "==", data: 1 },
+        collectionName: "member",
+        collectionCondition: { field: "role", condition: ">=", data: 1 },
     });
 
     /**

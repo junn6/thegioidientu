@@ -17,7 +17,7 @@ const Profile = () => {
     // ? Method for get user data
     async function getUserById(id) {
         // TODO Get data in firestore
-        const userSnap = await findById("user", id);
+        const userSnap = await findById("member", id);
         // TODO Set user data
         const userData = userSnap.data();
         setUser({ ...userData });

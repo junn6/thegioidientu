@@ -15,7 +15,7 @@ import {
     phoneNumberRegex,
     dateFormat,
 } from "../../../utils";
-import { user as userObj } from "../../../constants";
+import { member as memberObj } from "../../../constants";
 import avatarDefault from "../../../assets/avatar/userprofile.jpg";
 
 const AddEmployee = () => {
@@ -29,6 +29,7 @@ const AddEmployee = () => {
     const phoneNumberRef = useRef();
     const passwordRef = useRef();
     const repasswordRef = useRef();
+    const selectRef = useRef();
     const photoRef = useRef();
 
     // ? Set up states variables
@@ -102,32 +103,32 @@ const AddEmployee = () => {
          * TODO Update data and upload file to firestore
          */
         // ? Create and update data user object
-        const user = { ...userObj };
-        user.fullName = fullNameRef.current.value;
-        user.displayName = displayNameRef.current.value;
-        user.email = emailRef.current.value;
-        user.phoneNumber = phoneNumberRef.current.value;
-        user.createdAt = {
+        const member = { ...memberObj };
+        member.fullName = fullNameRef.current.value;
+        member.displayName = displayNameRef.current.value;
+        member.email = emailRef.current.value;
+        member.phoneNumber = phoneNumberRef.current.value;
+        member.createdAt = {
             timestamp: serverTimestamp(),
             format: dateFormat(Date.now()),
         };
-        user.role = 1;
+        member.role = parseInt(selectRef.current.value);
 
-        // ? Upload image to storage and get url image if have user avatar
+        // ? Upload image to storage and get url image if have member avatar
         if (avatar) {
             // * Upload and get url
             const path = `avatar/${displayNameRef.current.value}/${
                 displayNameRef.current.value + v4()
             }`;
             const url = await uploadAndGetPhotoURL(path, avatar);
-            // * update photo url in data user object
-            user.photoURL = url;
+            // * update photo url in data member object
+            member.photoURL = url;
         }
 
         /**
          * TODO Subcribed account to firebase auth
          * * 1. sign up account
-         * * 2. save data user in user collection firestore
+         * * 2. save data member in member collection firestore
          */
         try {
             // * 1. sign up account
@@ -136,8 +137,8 @@ const AddEmployee = () => {
                 passwordRef.current.value
             );
 
-            // * 2. save data user in users collection firestore
-            await create("user", { ...user }, res.user.uid);
+            // * 2. save data member in member collection firestore
+            await create("member", { ...member }, res.user.uid);
 
             // TODO navigate to employee dashboard
             navigate("/employee");
@@ -183,6 +184,23 @@ const AddEmployee = () => {
                         onChange={handleFileChange}
                         style={{ display: "none" }}
                     />
+                </div>
+                <div className="form--group">
+                    <select
+                        className="form--input"
+                        name="typeAccount"
+                        id="typeAccount"
+                        ref={selectRef}
+                        style={{ backgroundColor: "white" }}
+                    >
+                        <option defaultValue value="1">
+                            Nhân viên văn phòng
+                        </option>
+                        <option value="2">Nhân viên giao hàng</option>
+                    </select>
+                    <label className="form--label" htmlFor="typeAccount">
+                        Chọn loại tài khoản:
+                    </label>
                 </div>
                 <div className="form--group">
                     <input
