@@ -26,7 +26,11 @@ const Sidebar = () => {
     return (
         <aside className="sidebar d-flex direction-column">
             {/* Logo */}
-            <Link to="/" style={{ paddingBlock: "2rem" }}>
+            <Link
+                to="/"
+                className="sidebar-logo"
+                style={{ paddingBlock: "2rem" }}
+            >
                 <img
                     style={{ width: "5rem" }}
                     src={Logo}

@@ -141,4 +141,55 @@
             }
         }
     }
+
+    &-review {
+        width: min(100%, 45rem);
+        margin-inline: auto;
+
+        &-total {
+            font-size: var(--fs-200);
+            font-weight: var(--fw-medium);
+            color: #2f80ed;
+        }
+
+        &-list {
+            background-color: white;
+            padding: 1rem;
+        }
+
+        &-content {
+            padding-block: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        &-image {
+            img {
+                width: 2.5rem;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+
+        &-info {
+            --flow-spacer: 0.5rem;
+        }
+
+        &-username {
+            font-size: var(--fs-400);
+            font-weight: var(--fw-semibold);
+        }
+
+        &-time {
+            font-size: var(--fs-200);
+            color: var(--clr-neutral-300);
+        }
+
+        &-stars {
+            & > * {
+                font-size: var(--fs-200);
+                cursor: pointer;
+            }
+        }
+    }
 }

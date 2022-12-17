@@ -7,21 +7,10 @@
 
     &-logo {
         display: none;
-        font-family: var(--ff-secondary);
-        font-size: var(--fs-500);
-        background-color: var(--clr-primary-500);
-        color: var(--clr-neutral-100);
         text-transform: uppercase;
-        padding: 0.5rem;
-        width: 4rem;
-        height: 4rem;
-        margin-inline: auto;
-        border-radius: 50%;
 
         @include mq(small) {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
         }
     }
 
