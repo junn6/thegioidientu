@@ -5,11 +5,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 
 // Import components
+import { useAuth } from "../../../contexts";
 import {
     findById,
     all,
     capitalizeFirstLetter,
     trimLetter,
+    update,
 } from "../../../utils";
 import { Loading, ReviewInput, ReviewCard } from "../../../components";
 
@@ -21,13 +23,55 @@ const ProductDetail = () => {
     // ? Get product id in url
     const { productId } = useParams();
 
+    // ? Get data in custom hook
+    const { currentUser } = useAuth();
+
     // ? Set up states variables
     const [product, setProduct] = useState();
     const [review, setReview] = useState();
+    const [cart, setCart] = useState();
     const [error, setError] = useState("");
     const [skuId, setSkuId] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [tabItem, setTabItem] = useState("detail");
+
+    /**
+     * ? Method
+     * * 1. Add product to cart
+     */
+    const addToCart = async () => {
+        // TODO Get data
+        const { id, name, photos, cost, skus } = product;
+        const { products } = cart;
+
+        // TODO Create product item object
+        const cartItem = {
+            id,
+            name,
+            photoURL: photos[0],
+            sku: {
+                type: skus[skuId - 1].type,
+                quantity,
+            },
+            cost,
+        };
+
+        // TODO Update cart items and total cost in cart
+        products.push(cartItem);
+        cart.total = products.reduce(
+            (prev, item) => prev + item.cost.value * item.sku.quantity,
+            0
+        );
+
+        // TODO Update cart collection in firestore
+        await update("cart", cart.id, {
+            products,
+            total: cart.total,
+        });
+
+        // TODO Set cart state
+        setCart({ ...cart });
+    };
 
     /**
      * ? Handle event function
@@ -66,7 +110,23 @@ const ProductDetail = () => {
     };
 
     const handleAddtoCart = async () => {
-        console.log("Add to cart");
+        // TODO Check user choosed product typed
+        if (!skuId) {
+            setError("Bạn chưa chọn loại sản phẩm!");
+            return;
+        }
+        // TODO Check product in cart
+        const { products } = cart;
+        if (
+            products.filter((product) => product.id === productId).length === 0
+        ) {
+            // TODO Add when product not in cart
+            addToCart();
+        } else {
+            // TODO Message for user
+            setError("Bạn đã thêm sản phẩm vào giỏ hàng!");
+            return;
+        }
     };
 
     const handleOrder = async () => {
@@ -79,8 +139,9 @@ const ProductDetail = () => {
      */
     useEffect(() => {
         const getProduct = async () => {
-            // TODO Get product info and review from API
+            // TODO Get info for product, review and cart from API
             const snapshot = await findById("product", productId);
+
             const reviewData = [];
             const reviewSnapshots = await all("review", {
                 field: "productId",
@@ -90,15 +151,27 @@ const ProductDetail = () => {
             reviewSnapshots.forEach((snap) => {
                 reviewData.push({ id: snap.id, ...snap.data() });
             });
-            // TODO Set value in product state
+
+            const cartData = [];
+            const cartSnapshots = await all("cart", {
+                field: "uid",
+                condition: "==",
+                data: currentUser.uid,
+            });
+            cartSnapshots.forEach((snap) => {
+                cartData.push({ id: snap.id, ...snap.data() });
+            });
+
+            // TODO Set value in state
             setProduct({ id: snapshot.id, ...snapshot.data() });
             setReview({ ...reviewData[0] });
+            setCart({ ...cartData[0] });
         };
 
         getProduct();
-    }, [productId]);
+    }, [productId, currentUser]);
 
-    if (!product || !review) {
+    if (!product || !review || !cart) {
         return <Loading />;
     }
 
