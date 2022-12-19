@@ -200,7 +200,7 @@ const Cart = () => {
                             tiếp tục mua hàng
                         </Link>
                         <Link
-                            to="/order"
+                            to="/order/checkout"
                             className="button"
                             button-variant="contained"
                             button-color="primary"

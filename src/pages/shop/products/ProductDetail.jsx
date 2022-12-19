@@ -35,6 +35,9 @@ const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1);
     const [tabItem, setTabItem] = useState("detail");
 
+    // ? Navigate variable
+    const navigate = useNavigate();
+
     /**
      * ? Method
      * * 1. Add product to cart
@@ -130,7 +133,22 @@ const ProductDetail = () => {
     };
 
     const handleOrder = async () => {
-        console.log("Order to Cart");
+        // TODO Check user choosed product typed
+        if (!skuId) {
+            setError("Bạn chưa chọn loại sản phẩm!");
+            return;
+        }
+
+        // TODO Check product in cart
+        const { products } = cart;
+        if (
+            products.filter((product) => product.id === productId).length === 0
+        ) {
+            // TODO Add when product not in cart
+            addToCart();
+        }
+
+        navigate("/cart");
     };
 
     /**
