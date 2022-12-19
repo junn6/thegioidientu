@@ -1,0 +1,23 @@
+.purchase {
+    --flow-spacer: 1.25rem;
+
+    &-card {
+        --flow-spacer: 0.5rem;
+        background-color: white;
+        padding: 1rem;
+
+        &-time {
+            font-size: var(--fs-100);
+        }
+
+        &-img {
+            flex-shrink: 0;
+            width: 10rem;
+            aspect-ratio: 1;
+        }
+
+        &-info {
+            flex-grow: 1;
+        }
+    }
+}

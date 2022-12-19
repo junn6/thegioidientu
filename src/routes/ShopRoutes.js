@@ -16,6 +16,7 @@ import {
     Cart,
     Profile,
     EditProfile,
+    Purchase,
     ProductCategory,
     ProductDetail,
     Order,
@@ -46,6 +47,10 @@ const ShopRoutes = () => {
                                 <Route
                                     path="/profile/edit/:userId"
                                     element={<EditProfile />}
+                                />
+                                <Route
+                                    path="/profile/purchase"
+                                    element={<Purchase />}
                                 />
                                 <Route
                                     path="/category/:slug"

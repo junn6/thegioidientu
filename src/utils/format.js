@@ -56,6 +56,12 @@ export function dateFormat(timestamp) {
     return formatDate;
 }
 
+export function timestampToDate(timestamp) {
+    const date = new Date(+timestamp);
+
+    return date.toLocaleString();
+}
+
 export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

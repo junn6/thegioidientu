@@ -1,4 +1,9 @@
-export { dateFormat, capitalizeFirstLetter, trimLetter } from "./format";
+export {
+    dateFormat,
+    timestampToDate,
+    capitalizeFirstLetter,
+    trimLetter,
+} from "./format";
 export {
     all,
     create,

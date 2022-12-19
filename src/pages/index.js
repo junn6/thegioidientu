@@ -21,3 +21,4 @@ export { default as OrderSuccess } from "./shop/order/OrderSuccess";
  */
 export { default as Profile } from "./user/Profile";
 export { default as EditProfile } from "./user/EditProfile";
+export { default as Purchase } from "./user/Purchase";

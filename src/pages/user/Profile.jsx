@@ -98,14 +98,27 @@ const Profile = () => {
                         readOnly
                     />
                 </div>
-                <Link
-                    to={`/profile/edit/${currentUser.uid}`}
-                    className="button"
-                    button-variant="contained"
-                    button-color="primary"
+                <div
+                    className="d-flex justify-between items-center"
+                    style={{ flexWrap: "wrap" }}
                 >
-                    Chỉnh sửa hồ sơ
-                </Link>
+                    <Link
+                        to={`/profile/edit/${currentUser.uid}`}
+                        className="button"
+                        button-variant="contained"
+                        button-color="primary"
+                    >
+                        Chỉnh sửa hồ sơ
+                    </Link>
+                    <Link
+                        to={`/profile/purchase`}
+                        className="button"
+                        button-variant="outlined"
+                        button-color="primary"
+                    >
+                        Lịch sử mua hàng
+                    </Link>
+                </div>
             </div>
         </div>
     );
