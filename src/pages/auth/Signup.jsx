@@ -91,7 +91,7 @@ const Signup = () => {
             const { uid } = res.user;
 
             // Save user info to firestore
-            await create("users", { ...user }, uid);
+            await create("user", { ...user }, uid);
 
             // Create user cart collection
             await create("cart", {

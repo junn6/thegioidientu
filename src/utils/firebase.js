@@ -10,9 +10,10 @@ import {
     query,
     where,
 } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Import components
-import { db } from "../config";
+import { db, storage } from "../config";
 
 /**
  * TODO Create all methods in firebase hooks
@@ -20,6 +21,7 @@ import { db } from "../config";
  * * 2. Update item in collection with id
  * * 3. Get all item in collection with / without condition
  * * 4. Get item in collection with id
+ * * 5. Upload file and get url
  */
 export function create(collectionName, collectionData, collectionId = null) {
     if (!collectionId) {
@@ -61,4 +63,14 @@ export function all(collectionName, collectionCondition = null) {
 export function findById(collectionName, collectionId) {
     const docRef = doc(db, collectionName, collectionId);
     return getDoc(docRef);
+}
+
+export async function uploadAndGetPhotoURL(path, file) {
+    const imgRef = ref(storage, path);
+
+    // TODO upload file to storage
+    await uploadBytes(imgRef, file);
+
+    // ? return photo url
+    return getDownloadURL(imgRef);
 }
