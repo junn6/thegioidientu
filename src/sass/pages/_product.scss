@@ -165,6 +165,7 @@
 
         &-info {
             --flow-spacer: 0.5rem;
+            flex-grow: 1;
         }
 
         &-username {
@@ -175,13 +176,6 @@
         &-time {
             font-size: var(--fs-200);
             color: var(--clr-neutral-300);
-        }
-
-        &-stars {
-            & > * {
-                font-size: var(--fs-200);
-                cursor: pointer;
-            }
         }
     }
 }

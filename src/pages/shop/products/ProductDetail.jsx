@@ -29,6 +29,7 @@ const ProductDetail = () => {
     // ? Set up states variables
     const [product, setProduct] = useState();
     const [review, setReview] = useState();
+    const [user, setUser] = useState();
     const [cart, setCart] = useState();
     const [error, setError] = useState("");
     const [skuId, setSkuId] = useState(0);
@@ -180,16 +181,19 @@ const ProductDetail = () => {
                 cartData.push({ id: snap.id, ...snap.data() });
             });
 
+            const userSnapshot = await findById("user", currentUser.uid);
+
             // TODO Set value in state
             setProduct({ id: snapshot.id, ...snapshot.data() });
             setReview({ ...reviewData[0] });
             setCart({ ...cartData[0] });
+            setUser({ id: userSnapshot.id, ...userSnapshot.data() });
         };
 
         getProduct();
     }, [productId, currentUser]);
 
-    if (!product || !review || !cart) {
+    if (!product || !review || !cart || !user) {
         return <Loading />;
     }
 
@@ -386,8 +390,9 @@ const ProductDetail = () => {
                                 </p>
                             </div>
                             <ReviewInput
-                                reviewId={review.id}
-                                product={product}
+                                user={user}
+                                review={review}
+                                setReview={setReview}
                             />
                             <div className="ff-secondary fs-400 fw-semibold">
                                 Nội dung đánh giá
@@ -413,13 +418,10 @@ const ProductDetail = () => {
                                     </span>
                                 </p>
                             )}
-                            {review.comment.length === 0 && (
+                            {review.comment.length > 0 && (
                                 <div className="product-review-list">
-                                    {review.comment.map((item) => (
-                                        <ReviewCard
-                                            key={item.name}
-                                            data={item}
-                                        />
+                                    {review.comment.map((item, index) => (
+                                        <ReviewCard key={index} data={item} />
                                     ))}
                                 </div>
                             )}
