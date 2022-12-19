@@ -190,7 +190,11 @@ const ProductDetail = () => {
                     >
                         {product.photos.map((photo, index) => (
                             <SwiperSlide key={index}>
-                                <img src={photo} alt={product.name} />
+                                <img
+                                    className="img-fluid"
+                                    src={photo}
+                                    alt={product.name}
+                                />
                             </SwiperSlide>
                         ))}
                     </Swiper>

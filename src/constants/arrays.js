@@ -18,6 +18,7 @@ const type = [
     { url: watch, label: "đồng hồ", slug: "watch" },
     { url: backup_charger, label: "sạc dự phòng", slug: "backup_charger" },
     { url: headphone, label: "tai nghe", slug: "headphone" },
+    { url: headphone, label: "tai nghe có dây", slug: "wire_headphone" },
     { url: keyboard, label: "bàn phím", slug: "keyboard" },
     { url: mouse_computer, label: "chuột máy tính", slug: "mouse_computer" },
 ];

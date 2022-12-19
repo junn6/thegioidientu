@@ -22,7 +22,6 @@
             display: flex;
             align-items: center;
             aspect-ratio: 1;
-            background-color: #fff;
 
             @include mq(small) {
                 width: 15rem;
@@ -30,13 +29,6 @@
 
             @include mq(medium) {
                 width: 25rem;
-            }
-
-            img {
-                max-width: 100%;
-                height: auto;
-                margin-inline: auto;
-                object-fit: cover;
             }
         }
 
