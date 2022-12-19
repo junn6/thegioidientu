@@ -4,19 +4,6 @@ import ReactStars from "react-rating-stars-component";
 
 // Import components
 
-// TODO Set up props in react star
-const starReviewProps = {
-    size: 30,
-    count: 5,
-    value: 7.5,
-    a11y: true,
-    emptyIcon: <span className="material-symbols-outlined">star</span>,
-    filledIcon: <span className="material-symbols-rounded">star</span>,
-    onChange: (newValue) => {
-        console.log(`Example 2: new value is ${newValue}`);
-    },
-};
-
 const ReviewInput = ({ reviewId, product }) => {
     // ? Set up ref variables
     const inputRef = useRef();
