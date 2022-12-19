@@ -10,6 +10,15 @@ import {
     mouse_computer,
 } from "../assets/category";
 
+import {
+    banner1,
+    banner2,
+    banner3,
+    banner4,
+    banner5,
+    banner6,
+} from "../assets/banner";
+
 const type = [
     { url: phone, label: "điện thoại", slug: "phone" },
     { url: laptop, label: "laptop", slug: "laptop" },
@@ -23,4 +32,13 @@ const type = [
     { url: mouse_computer, label: "chuột máy tính", slug: "mouse_computer" },
 ];
 
-export { type };
+const banners = [
+    { url: banner1 },
+    { url: banner2 },
+    { url: banner3 },
+    { url: banner4 },
+    { url: banner5 },
+    { url: banner6 },
+];
+
+export { type, banners };
