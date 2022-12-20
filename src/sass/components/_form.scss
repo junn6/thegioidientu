@@ -123,4 +123,23 @@
             color: var(--clr-neutral-500);
         }
     }
+
+    &--select {
+        outline: none;
+        background-color: transparent;
+
+        &[data-visible="true"] {
+            border: thin solid var(--clr-neutral-500);
+            padding: 0.5rem 1rem;
+            color: var(--clr-primary-500);
+        }
+
+        &[data-visible="false"] {
+            opacity: 1;
+            border: none;
+            appearance: none;
+            -webkit-appearance: none;
+            color: var(--clr-green-500);
+        }
+    }
 }

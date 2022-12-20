@@ -18,5 +18,7 @@ export { default as Product } from "./admin/product/Product";
 export { default as AddProduct } from "./admin/product/AddProduct";
 export { default as EditProduct } from "./admin/product/EditProduct";
 export { default as Order } from "./admin/order/Order";
+export { default as EditOrder } from "./admin/order/EditOrder";
+export { default as OrderDetail } from "./admin/order/OrderDetail";
 export { default as Profile } from "./admin/profile/Profile";
 export { default as EditProfile } from "./admin/profile/EditProfile";

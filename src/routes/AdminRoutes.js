@@ -15,6 +15,8 @@ import {
     AddProduct,
     EditProduct,
     Order,
+    EditOrder,
+    OrderDetail,
     Employee,
     AddEmployee,
     EditEmployee,
@@ -66,6 +68,14 @@ const ShopRoutes = () => {
                                 element={<EditProfile />}
                             />
                             <Route path="/order" element={<Order />} />
+                            <Route
+                                path="/order/:orderId"
+                                element={<OrderDetail />}
+                            />
+                            <Route
+                                path="/order/edit/:orderId"
+                                element={<EditOrder />}
+                            />
                         </Route>
                     </Route>
                 </Routes>
