@@ -64,6 +64,7 @@ const revenue = {
     cost: null,
     photoURL: "",
     quantity: 0,
+    type: "",
 };
 
 const productDetails = {

@@ -191,6 +191,7 @@ const AddProduct = () => {
         revenue.name = product.name;
         revenue.cost = product.cost;
         revenue.photoURL = product.photos[0];
+        revenue.type = product.type;
 
         await create("revenue", { ...revenue });
 
