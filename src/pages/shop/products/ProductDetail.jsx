@@ -210,6 +210,17 @@ const ProductDetail = () => {
         };
 
         getProduct();
+
+        return () => {
+            setProduct(null);
+            setReview(null);
+            setCart(null);
+            setUser(null);
+            setOtherProducts(null);
+            setError("");
+            setSkuId(0);
+            setTabItem("detail");
+        };
     }, [productId, currentUser]);
 
     if (!product || !review || !cart || !user || !otherProducts) {
