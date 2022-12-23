@@ -10,4 +10,5 @@ export {
     findById,
     update,
     uploadAndGetPhotoURL,
+    getOrderWithCondition,
 } from "./firebase";

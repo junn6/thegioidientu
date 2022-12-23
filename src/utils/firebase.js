@@ -9,6 +9,8 @@ import {
     doc,
     query,
     where,
+    orderBy,
+    limitToLast,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -73,4 +75,21 @@ export async function uploadAndGetPhotoURL(path, file) {
 
     // ? return photo url
     return getDownloadURL(imgRef);
+}
+
+export async function getOrderWithCondition(
+    collectionName,
+    collectionField,
+    collectionCondition,
+    collectionLimit = 5
+) {
+    const { field, condition, data } = collectionCondition;
+    const q = query(
+        collection(db, collectionName),
+        where(field, condition, data),
+        orderBy(collectionField),
+        limitToLast(collectionLimit)
+    );
+
+    return getDocs(q);
 }

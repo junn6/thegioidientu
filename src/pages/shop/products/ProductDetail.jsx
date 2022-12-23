@@ -12,8 +12,14 @@ import {
     capitalizeFirstLetter,
     trimLetter,
     update,
+    getOrderWithCondition,
 } from "../../../utils";
-import { Loading, ReviewInput, ReviewCard } from "../../../components";
+import {
+    Loading,
+    ReviewInput,
+    ReviewCard,
+    ProductCard,
+} from "../../../components";
 
 // Import Swiper styles
 import "swiper/scss";
@@ -31,6 +37,7 @@ const ProductDetail = () => {
     const [review, setReview] = useState();
     const [user, setUser] = useState();
     const [cart, setCart] = useState();
+    const [otherProducts, setOtherProducts] = useState();
     const [error, setError] = useState("");
     const [skuId, setSkuId] = useState(0);
     const [quantity, setQuantity] = useState(1);
@@ -158,7 +165,7 @@ const ProductDetail = () => {
      */
     useEffect(() => {
         const getProduct = async () => {
-            // TODO Get info for product, review and cart from API
+            // TODO Get info for product, review, cart and list products suggestion from API
             const snapshot = await findById("product", productId);
 
             const reviewData = [];
@@ -183,17 +190,29 @@ const ProductDetail = () => {
 
             const userSnapshot = await findById("user", currentUser.uid);
 
+            const otherProductsData = [];
+            const { type } = snapshot.data();
+            const otherProductsSnapshot = await getOrderWithCondition(
+                "revenue",
+                "quantity",
+                { field: "type", condition: "==", data: type }
+            );
+            otherProductsSnapshot.forEach((snap) => {
+                otherProductsData.push({ ...snap.data() });
+            });
+
             // TODO Set value in state
             setProduct({ id: snapshot.id, ...snapshot.data() });
             setReview({ ...reviewData[0] });
             setCart({ ...cartData[0] });
             setUser({ id: userSnapshot.id, ...userSnapshot.data() });
+            setOtherProducts([...otherProductsData]);
         };
 
         getProduct();
     }, [productId, currentUser]);
 
-    if (!product || !review || !cart || !user) {
+    if (!product || !review || !cart || !user || !otherProducts) {
         return <Loading />;
     }
 
@@ -427,6 +446,24 @@ const ProductDetail = () => {
                             )}
                         </div>
                     )}
+                </div>
+            </div>
+            {/* Product Suggestion */}
+            <div className="product-suggest flow">
+                <div className="ff-secondary fs-400 fw-semibold">
+                    Xem thêm sản phẩm tương tự khác
+                </div>
+                <div className="product-grid d-grid">
+                    {otherProducts.map((product) => {
+                        return (
+                            product.productId !== productId && (
+                                <ProductCard
+                                    key={product.productId}
+                                    data={product}
+                                />
+                            )
+                        );
+                    })}
                 </div>
             </div>
         </div>
