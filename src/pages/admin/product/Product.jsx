@@ -1,8 +1,9 @@
 // Import library
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // Import icons
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiSearch } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 // Import components
@@ -15,9 +16,17 @@ const Product = () => {
     const [loading, data, setReload] = useGetCollection({
         collectionName: "product",
     });
+
+    // ? Set up ref variables
+    const searchInputRef = useRef();
+
+    // ? Set up state variables
+    const [products, setProducts] = useState();
+
     /**
      * ? Handle event function
      * * 1. Delete product method
+     * * 2. Handle search input
      */
     const handleClick = async (product) => {
         // TODO Get product info
@@ -30,13 +39,43 @@ const Product = () => {
         setReload(true);
     };
 
-    if (loading) {
+    const handleSearch = () => {
+        // TODO If user haven't input
+        if (!searchInputRef.current.value) {
+            return;
+        }
+
+        // TODO Update list product
+        const dataSearch = data.filter(
+            (product) =>
+                product.name
+                    .toLowerCase()
+                    .includes(searchInputRef.current.value.toLowerCase()) ||
+                product.desc
+                    .toLowerCase()
+                    .includes(searchInputRef.current.value.toLowerCase())
+        );
+        setProducts(dataSearch);
+    };
+
+    /**
+     * ? Side effect
+     * * 1. Set product states
+     */
+    useEffect(() => {
+        if (data) {
+            setProducts(data);
+        }
+    }, [data]);
+
+    if (loading || !products) {
         return (
             <section>
                 <Loading />
             </section>
         );
     }
+
     return (
         <section className="flow">
             <div className="d-flex justify--between items--center">
@@ -49,6 +88,28 @@ const Product = () => {
                 >
                     thêm sản phẩm
                 </Link>
+            </div>
+            <div className="d-flex" style={{ "--gap": "0.25rem" }}>
+                <input
+                    type="text"
+                    placeholder="Nhập ký tự tìm kiếm"
+                    style={{
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        width: "100%",
+                        maxWidth: "30rem",
+                    }}
+                    ref={searchInputRef}
+                />
+                <button
+                    className="button"
+                    button-variant="contained"
+                    button-color="green"
+                    onClick={handleSearch}
+                    style={{ lineHeight: 1 }}
+                >
+                    <FiSearch />
+                </button>
             </div>
             <div style={{ width: "100%", overflowX: "scroll" }}>
                 <table className="table" style={{ width: "max(100%, 60rem)" }}>
@@ -70,8 +131,8 @@ const Product = () => {
                             </tr>
                         )}
                         {/* Có dữ liệu sản phẩm */}
-                        {data.length > 0 &&
-                            data.map((product, index) => (
+                        {products.length > 0 &&
+                            products.map((product, index) => (
                                 <tr key={product.id}>
                                     <td>{index + 1}</td>
                                     <td>
