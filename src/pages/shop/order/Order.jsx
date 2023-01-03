@@ -24,6 +24,7 @@ const Order = () => {
 
     // ? Set up states variables
     const [cart, setCart] = useState();
+    const [user, setUser] = useState();
     const [isEnable, setIsEnalbe] = useState("false");
 
     // ? Set up ref variables
@@ -116,7 +117,11 @@ const Order = () => {
      * ? Handle event
      * * 1. handle when input change value
      */
-    const handleChange = () => {
+    const handleChange = (event, { field }) => {
+        // TODO Set data in user data
+        console.log(field);
+        setUser((prev) => ({ ...prev, [field]: event.target.value }));
+
         // TODO If insufficient data are available
         if (
             !fullNameRef.current.value ||
@@ -134,7 +139,7 @@ const Order = () => {
     /**
      * ? Side effect
      * * 1. Set cart state
-     * * 2. When shipping state change
+     * * 2. Set user state
      */
     useEffect(() => {
         if (data) {
@@ -142,7 +147,20 @@ const Order = () => {
         }
     }, [data]);
 
-    if (loading || !cart) {
+    useEffect(() => {
+        const getData = async () => {
+            // Get user data from API
+            const qSnapshot = await findById("user", currentUser.uid);
+            const data = { ...qSnapshot.data() };
+
+            // Set data value in user state
+            setUser({ id: currentUser.uid, ...data, address: "" });
+        };
+
+        getData();
+    }, [currentUser]);
+
+    if (loading || !cart || !user) {
         return <Loading />;
     }
 
@@ -198,9 +216,8 @@ const Order = () => {
                         placeholder=" "
                         className="form-input"
                         ref={fullNameRef}
-                        onChange={(e) =>
-                            handleChange({ fullName: e.target.value })
-                        }
+                        value={user.fullName}
+                        onChange={(e) => handleChange(e, { field: "fullName" })}
                     />
                 </div>
                 <div className="form-group w-full">
@@ -212,8 +229,9 @@ const Order = () => {
                         placeholder=" "
                         className="form-input"
                         ref={phoneNumberRef}
+                        value={user.phoneNumber}
                         onChange={(e) =>
-                            handleChange({ phoneNumber: e.target.value })
+                            handleChange(e, { field: "phoneNumber" })
                         }
                     />
                 </div>
@@ -226,9 +244,8 @@ const Order = () => {
                         placeholder=" "
                         className="form-input"
                         ref={addressRef}
-                        onChange={(e) =>
-                            handleChange({ address: e.target.value })
-                        }
+                        value={user.address}
+                        onChange={(e) => handleChange(e, { field: "address" })}
                     />
                 </div>
                 {/* Payments */}
